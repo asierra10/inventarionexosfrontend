@@ -21,6 +21,7 @@ export class ProductoComponent implements OnInit {
   }
 
   currentUser:string = "";
+  busqueda: string = "";
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -33,7 +34,7 @@ export class ProductoComponent implements OnInit {
         this.data.productArray = res; 
         console.log(this.data.productArray);
       }
-    );
+    ); 
   }
 
   getAllUsers(){
@@ -102,6 +103,24 @@ export class ProductoComponent implements OnInit {
         }
       );
     }
+  }
+
+  buscar(form:NgForm){
+    this.busqueda = form.value.search;
+    console.log("busqueda: "+this.busqueda);
+    this.data.getAllProductsByName(this.busqueda).subscribe(
+      res => {   
+        if(res.length == 0){
+          alert("¡No existen productos que concuerden con el parámetro de búsqueda!");
+        }else{
+          this.data.productArray = res; 
+        }
+      }
+    );
+  }
+
+  clean(){
+    this.getAllProducts();
   }
 
 }

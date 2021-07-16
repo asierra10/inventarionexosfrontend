@@ -41,16 +41,26 @@
         <div class="col-md-9">
             <div class="card mt-4">
                 <h4 style="text-align: center;">Lista de Productos</h4>
+                <div class="container mt-1">
+                    <form #searchForm="ngForm" class="row" (ngSubmit)="buscar(searchForm)">
+                        <div class="col-9"><input type="text" class="form-control" id="search" name="search" placeholder="Buscar..." [(ngModel)]="this.busqueda"></div>
+                        <div class="col-3">
+                            <button name="btn" class="btn btn-block btn-success" style="margin-right: 10px;">Buscar</button>
+                            <button name="btn" class="btn btn-block btn-warning" (click)="clean()">Limpiar</button>
+                        </div>
+                    </form>
+                </div>    
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Creador por</th>
+                            <th>Creado por</th>
                             <th>Fecha de creación</th>
                             <th>Editado por</th>
                             <th>Fecha de editación</th>
-                            <th>Operaciones</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,10 +71,8 @@
                             <td>{{ pr.fecha_creacion }}</td>
                             <td>{{ pr.usuario_editor?.nombre_usuario }}</td>
                             <td>{{ pr.fecha_edicion }}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" (click)="editProduct(pr)"><i class="material-icons">edit</i></button>
-                                <button class="btn btn-danger btn-sm" (click)="deleteProduct(pr)"><i class="material-icons">delete</i></button>
-                            </td>
+                            <td><button class="btn btn-warning btn-sm" (click)="editProduct(pr)"><i class="material-icons">edit</i></button></td>
+                            <td><button class="btn btn-danger btn-sm" (click)="deleteProduct(pr)"><i class="material-icons">delete</i></button></td>
                         </tr>
                     </tbody>
                 </table>
