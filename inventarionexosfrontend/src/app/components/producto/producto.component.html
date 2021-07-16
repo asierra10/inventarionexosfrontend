@@ -1,0 +1,74 @@
+<mat-toolbar class="docs-navbar-header mt-4">
+    <mat-toolbar-row>
+        <h1 class="font-title" style="text-align:center;width:100%; color: white;">Gestión de Productos</h1>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mt-4">
+                <div class="card-title" style="text-align:center;margin-top:10px">
+                    <h4>Usuario Actual</h4>
+                </div>
+                <div class="card-body">
+                    <form #currentUserForm="ngForm" (ngSubmit)="getCurrentUser(currentUserForm)">
+                        <select name="usuarioActual" id="usuarioActual" style="width:100%" class="form-control" [(ngModel)]="this.currentUser">
+                            <option>Seleccione un usuario</option>
+                            <option *ngFor="let us of this.data.userArray" value="{{ us.id_usuario }}">{{ us.nombre_usuario }}</option>
+                        </select>
+                        <div style="margin-top: 10px;">
+                            <button name="btn" class="btn btn-block btn-success">Seleccionar Usuario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-title" style="text-align:center;margin-top:10px">
+                    <h4>Crear/Editar productos</h4>
+                </div>
+                <div class="card-body">
+                    <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+                        <input type="hidden" name="_id" [(ngModel)]="this.data.newProduct.id_producto">
+                        <input type="text" class="form-control" placeholder="Ingrese nombre del producto" name="nombre" [(ngModel)]="this.data.newProduct.nombre">
+                        <input type="number" class="form-control" placeholder="Ingrese cantidad" name="cantidad" [(ngModel)]="this.data.newProduct.cantidad">
+                        <div style="margin-top: 10px;">
+                            <button name="btn" class="btn btn-block btn-success">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card mt-4">
+                <h4 style="text-align: center;">Lista de Productos</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Creador por</th>
+                            <th>Fecha de creación</th>
+                            <th>Editado por</th>
+                            <th>Fecha de editación</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pr of this.data.productArray">
+                            <td>{{ pr.nombre }}</td>
+                            <td>{{ pr.cantidad }}</td>
+                            <td>{{ pr.usuario_creador?.nombre_usuario }}</td>
+                            <td>{{ pr.fecha_creacion }}</td>
+                            <td>{{ pr.usuario_editor?.nombre_usuario }}</td>
+                            <td>{{ pr.fecha_edicion }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" (click)="editProduct(pr)"><i class="material-icons">edit</i></button>
+                                <button class="btn btn-danger btn-sm" (click)="deleteProduct(pr)"><i class="material-icons">delete</i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
