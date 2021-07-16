@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataserviceService } from '../../service/dataservice.service';
-import { MatDialog } from '@angular/material/dialog';
 import { NgForm } from '@angular/forms';
 import { Producto } from '../../model/Producto';
-import { Usuario } from '../../model/Usuario';
 
 @Component({
   selector: 'app-producto',

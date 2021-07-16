@@ -1,1 +1,85 @@
-<p>usuario works!</p>
+<mat-toolbar class="docs-navbar-header mt-4">
+    <mat-toolbar-row>
+        <h1 class="font-title" style="text-align:center;width:100%; color: white;">Gestión de Usuarios</h1>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mt-4">
+                <div class="card-title" style="text-align:center;margin-top:10px">
+                    <h4>Crear nuevo Usuario</h4>
+                </div>
+                <div class="card-body">
+                    <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+                        <input type="text" name="nombre_usuario" class="form-control" placeholder="Ingrese el nombre del usuario" [(ngModel)]="this.data.newUser.nombre_usuario">
+                        <input type="number" name="edad" class="form-control" placeholder="Ingrese Edad" [(ngModel)]="this.data.newUser.edad">
+                        <select name="cargoActual" id="cargoActual" style="width:100%" class="form-control" [(ngModel)]="this.cargoActual" aria-placeholder="Seleccione un cargo">
+                            <option *ngFor="let cr of this.data.positionArray" value="{{ cr.id_cargo }}">{{ cr.cargo }}</option>
+                        </select>
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-block btn-success">Crear Usuario</button>
+                        </div>          
+                    </form>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-title" style="text-align:center;margin-top:10px">
+                    <h4>Crear nuevo Cargo</h4>
+                </div>
+                <div class="card-body">
+                    <form #positionForm="ngForm" (ngSubmit)="addPosition(positionForm)">
+                        <input type="text" name="cargo" class="form-control" placeholder="Ingrese el nombre del nuevo cargo" [(ngModel)]="this.data.newPosition.cargo">
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-block btn-success">Crear Cargo</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card mt-4">
+                <h4 style="text-align: center;">Lista de Usuarios</h4>   
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Cargo</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let us of this.data.userArray">
+                            <td>{{ us.nombre_usuario }}</td>
+                            <td>{{ us.edad }}</td>
+                            <td>{{ us.fecha_ingreso }}</td>
+                            <td>{{ us.cargo?.cargo }}</td>
+                            <td><button class="btn btn-danger btn-sm" (click)="deleteUser(us)"><i class="material-icons">delete</i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-4">
+                <h4 style="text-align: center;">Lista de Cargos</h4>   
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Cargo</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cr of this.data.positionArray">
+                            <td>{{ cr.cargo }}</td>
+                            <td><button class="btn btn-danger btn-sm" (click)="deletePosition(cr.id_cargo)"><i class="material-icons">delete</i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

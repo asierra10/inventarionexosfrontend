@@ -13,15 +13,21 @@ export class DataserviceService {
   server: string = "http://localhost:8080/api";
   productArray = new Array<Producto>();
   userArray = new Array<Usuario>();
+  positionArray = new Array<Cargo>();
   newProduct: Producto = {
     id_producto:0,
     nombre:"",
     cantidad:0
   };
   newUser: Usuario = {
+    id_usuario:0,
     nombre_usuario:"",
     edad:0
   };
+  newPosition: Cargo = {
+    id_cargo:0,
+    cargo:""
+  }
   
   constructor(private http:HttpClient) { }
 
